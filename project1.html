@@ -38,12 +38,55 @@
             <div id="zenkPlot" style="width:100%;height:500px;"></div>
 
             <script>
+                // Define the colors for each group
+                var groupColors = {
+                    'ALAN': '#F9D731',
+                    'day': '#C4C4C3',
+                    'night': '#50504F'
+                };
                 // Load CSV data and parse it
                 Plotly.d3.csv('cfos_df.csv', function(err, rows) {
                     if (err) {
                         console.error('Error loading data:', err);
                         return;
                     }
+
+                    // Function to create traces
+                    function createTrace(data, expression) {
+                        return {
+                            x: data.map(row => row['group']),
+                            y: data.map(row => parseFloat(row[expression + '_percent'])),
+                            type: 'violin',
+                            name: expression.toUpperCase() + ' Expression',
+                            marker: {
+                                color: data.map(row => groupColors[row['group']] || '#000000')
+                            }
+                        };
+                    }
+
+                    // Function to create significance bar shape
+                    function createSignificanceBar(x0, x1, y) {
+                        return {
+                            type: 'line',
+                            x0: x0,
+                            x1: x1,
+                            y0: y,
+                            y1: y,
+                            line: {color: 'black', width: 2}
+                        };
+                    }
+
+                    // Function to create significance annotation
+                    function createAnnotation(x, y) {
+                        return {
+                            x: x,
+                            y: y,
+                            text: '*',
+                            showarrow: false,
+                            font: {size: 14}
+                        };
+                    }
+
 
                     // Process data for cFos plot
                     var cfosData = rows.map(row => ({
