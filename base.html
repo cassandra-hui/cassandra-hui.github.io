@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Cassandra Hui</title>
+    <link rel="stylesheet" href="style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">About Me</a></li>
+                <li><a href="projects.html">Projects</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section class="section">
+        <div class="container">
+          <h1 class="title">
+            {{ title }}
+          </h1>
+          <p class="subtitle">
+            
+            </p>
+    
+            <p>
+              
+            {% block content %}
+    
+            {% endblock %}
+
+    <footer>
+        <p>&copy; 2024 Cassandra Hui. All rights reserved.</p>
+    </footer>
+</body>
+</html>
